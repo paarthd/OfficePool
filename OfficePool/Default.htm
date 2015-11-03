@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>jqGrid Example Part 1</title>
+    <link rel="stylesheet"
+          href="Content/themes/redmond/jquery-ui.redmond.css"
+          type="text/css" />
+    <link rel="stylesheet"
+          href="Content/jquery.jqgrid/ui.jqgrid.css" type="text/css" />
+
+    <script src="Scripts/jquery-1.10.2.min.js"
+            type="text/javascript"></script>
+    <script src="Scripts/i18n/grid.locale-en.js"
+            type="text/javascript"></script>
+    <script src="Scripts/jquery.jqGrid.min.js"
+            type="text/javascript"></script>
+
+    <script type="text/javascript">
+    // the url to make the Ajax calls
+    var jqDataUrl = "jQGrid/LoadjqData";
+    $(document).ready(function () {
+
+        // Set up the jquery grid
+        $("#jqTable").jqGrid({
+            // Ajax related configurations
+            url: jqDataUrl,
+            datatype: "json",
+            mtype: "POST",
+
+            // Specify the column names
+            colNames: ["ID", "Name", "IsActive", "CreatedOn"],
+
+            // Configure the columns
+            colModel: [
+            { name: "ID", index: "ID", width: 40, align: "left" },
+            { name: "Name", index: "Name", width: 100, align: "left" },
+            { name: "IsActive", index: "IsActive", width: 200, align: "left" },
+            { name: "CreatedOn", index: "CreatedOn", width: 200, align: "left" }],
+
+            // Grid total width and height
+            width: 550,
+            height: 200,
+
+            // Paging
+            toppager: true,
+            pager: $("#jqTablePager"),
+            rowNum: 5,
+            rowList: [5, 10, 20],
+            viewrecords: true, // Specify if "total number of records" is displayed
+
+            // Default sorting
+            sortname: "Id",
+            sortorder: "asc",
+
+            // Grid caption
+            caption: "Office Pool"
+        }).navGrid("#jqTablePager",
+            { refresh: true, add: false, edit: false, del: false },
+                {}, // settings for edit
+                {}, // settings for add
+                {}, // settings for delete
+                {sopt: ["cn"]} // Search options. Some options can be set on column level
+         );
+    });
+    </script>
+</head>
+
+<body>
+    <div>
+        <table id="jqTable" class="scroll"></table>
+        <div id="jqTablePager" />
+    </div>
+</body>
+</html>
